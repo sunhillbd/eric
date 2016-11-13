@@ -27,7 +27,13 @@ Route::get('login',['as'=>'auth.login','uses'=>'Auth\LoginController@loginPage']
 Route::get('logout',['as'=>'auth.logout','uses'=>'Auth\LoginController@lgout']);
 Route::get('dashboard',['as'=>'dashboard','middleware'=>'dashboard', function () {
 
-    return view('frontend.dashboard');
+    return view('frontend.dashboard.index');
+}]);
+
+Route::get('dashboard/{form}',['as'=>'forms',function($form){
+
+    return view('frontend.dashboard.'.$form);
+
 }]);
 
 //Auth::routes();
