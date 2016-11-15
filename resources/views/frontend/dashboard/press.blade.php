@@ -20,7 +20,8 @@
                                             <div class="panel-body">
                                                 <div class="tab-content">
                                                     <div class="tab-pane active">
-                                                        <form action="#" id="basicwizard" class="form-horizontal">
+                                                        <form action="{{ route('questionnare.submit') }}" enctype="multipart/form-data" id="basicwizard" class="form-horizontal" method="POST">
+                                                            {{ csrf_field() }}
                                                             <fieldset title="Guidelines">
                                                                 <legend></legend>
                                                                 <div class="row">
@@ -54,9 +55,7 @@
                                                                 <div class="form-group">
                                                                     <label class="col-md-12 form-label">Select document to upload</label>
                                                                     <div class="col-md-12">
-                                                                        <div action="upload.php" method="post" enctype="multipart/form-data">
-                                                                            <input type="file" name="fileToUpload" id="fileToUpload">
-                                                                        </div>
+                                                                        <input type="file" name="press_1" id="fileToUpload">
                                                                     </div>
                                                                 </div>
                                                             </fieldset>
@@ -65,7 +64,7 @@
                                                                 <div class="form-group">
                                                                     <label class="col-md-12 form-label">What is the title of this article?</label>
                                                                     <div class="col-md-12 form-input">
-                                                                        <input type="text" class="form-control">
+                                                                        <input name='press_2' type="text" class="form-control">
                                                                     </div>
                                                                 </div>
                                                             </fieldset>
@@ -74,7 +73,7 @@
                                                                 <div class="form-group">
                                                                     <label class="col-md-12 form-label">What is the name of the publication in which this article appeared?</label>
                                                                     <div class="col-md-12 form-input">
-                                                                        <input type="text" class="form-control">
+                                                                        <input name="press_3" type="text" class="form-control">
                                                                     </div>
                                                                 </div>
                                                             </fieldset>
@@ -83,7 +82,7 @@
                                                                 <div class="form-group">
                                                                     <label class="col-md-12 form-label">When was this article published?</label>
                                                                     <div class="col-md-12 form-input">
-                                                                        <input type="text" class="form-control">
+                                                                        <input name="press_4" type="text" class="form-control">
                                                                     </div>
                                                                 </div>
                                                             </fieldset>
@@ -92,10 +91,10 @@
                                                                 <div class="form-group">
                                                                     <label class="col-md-12 form-label">What is the name of the article's author?</label>
                                                                     <div class="col-md-12 form-input">
-                                                                        <input type="text" class="form-control">
+                                                                        <input name="press_5" type="text" class="form-control">
                                                                         <div class="checkboxcontainer">
                                                                             <label class="checkbox-inline icheck">
-                                                                                <input type="checkbox" id="inlinecheckbox1" value="option1"> No author given
+                                                                                <input name="press_is_answered_5" type="checkbox" id="inlinecheckbox1" value="option1"> No author given
                                                                             </label>
                                                                         </div>
                                                                     </div>
@@ -115,10 +114,11 @@
                                                                 <div class="form-group uploadtranslationbox" id="no" style="display: none;">
                                                                     <label class="col-md-12 form-label">Upload a translation of the article with certification <a class="btn btn-default-alt btn-xs" data-toggle="modal" href="#tipuploadtranslation">?</a></label>
                                                                     <div class="col-md-12 form-input">
-                                                                        <a href="#" class="btn btn-default">Upload translation</a>
+                                                                        <input type="file" name="press_6" id="fileToUpload">
+                                                                        {{--<a href="#" class="btn btn-default">Upload translation</a>--}}
                                                                         <div class="checkboxcontainer">
                                                                             <label class="checkbox-inline icheck">
-                                                                                <input type="checkbox" id="inlinecheckbox1" value="option1"> Come back to this later
+                                                                                <input name="press_is_answered_6" type="checkbox" name="translated_article" id="inlinecheckbox1" value="option1"> Come back to this later
                                                                             </label>
                                                                         </div>
                                                                     </div>
@@ -129,10 +129,11 @@
                                                                 <div class="form-group">
                                                                     <label class="col-md-12 form-label">Please upload evidence of the publication's circulation or readership <a class="btn btn-default-alt btn-xs" data-toggle="modal" href="#tipuploadevidence">?</a></label>
                                                                     <div class="col-md-12 form-input">
-                                                                        <a href="#" class="btn btn-default">Upload evidence</a>
+                                                                        <input name="press_7" type="file" name="press_6" id="fileToUpload">
+                                                                        {{--<a href="#" class="btn btn-default">Upload evidence</a>--}}
                                                                         <div class="checkboxcontainer">
                                                                             <label class="checkbox-inline icheck">
-                                                                                <input type="checkbox" id="inlinecheckbox1" value="option1"> Come back to this later
+                                                                                <input name="press_is_answered_7" type="checkbox" name="publication_circulation" id="inlinecheckbox1" value="option1"> Come back to this later
                                                                             </label>
                                                                         </div>
                                                                     </div>
@@ -150,12 +151,13 @@
                                                                     </div>
                                                                 </div>
                                                                 <div class="form-group uploadtranslationbox2" id="no2" style="display: none;">
-                                                                    <label class="col-md-12 form-label">Upload a translation of the article with certification <a class="btn btn-default-alt btn-xs" data-toggle="modal" href="#tipuploadtranslation">?</a></label>
+                                                                    <label class="col-md-12 form-label">Upload a translation of the document with certification <a class="btn btn-default-alt btn-xs" data-toggle="modal" href="#tipuploadtranslation">?</a></label>
                                                                     <div class="col-md-12 form-input">
-                                                                        <a href="#" class="btn btn-default">Upload translation</a>
+                                                                        <input name="press_8" type="file" name="press_6" id="fileToUpload">
+                                                                        {{--<a href="#" class="btn btn-default">Upload translation</a>--}}
                                                                         <div class="checkboxcontainer">
                                                                             <label class="checkbox-inline icheck">
-                                                                                <input type="checkbox" id="inlinecheckbox1" value="option1"> Come back to this later
+                                                                                <input name="press_is_answered_8" type="checkbox" name="translated_publication_circulation" id="inlinecheckbox1" value="option1"> Come back to this later
                                                                             </label>
                                                                         </div>
                                                                     </div>
@@ -166,11 +168,12 @@
                                                                 <div class="form-group">
                                                                     <label class="col-md-12 form-label">Upload more articles?</label>
                                                                     <div class="col-md-12 form-input">
-                                                                        <a href="#" class="btn btn-success">Save and add more articles</a>
+{{--                                                                        <a  href="{{ route('questionnare.submit') }}" class="btn btn-success">Save and add more articles</a>--}}
+                                                                        <button type="submit"   class="btn btn-success">Save and add more articles</button>
                                                                     </div>
                                                                 </div>
                                                             </fieldset>
-                                                            <fieldset title="Articles written by you or featuring your work part 1">
+                                                           {{-- <fieldset title="Articles written by you or featuring your work part 1">
                                                                 <legend></legend>
                                                                 <div class="row">
                                                                     <div class="col-md-12" style="margin-bottom: 20px;">
@@ -274,7 +277,7 @@
                                                                         <a href="#" class="btn btn-success">Save and add more articles</a>
                                                                     </div>
                                                                 </div>
-                                                            </fieldset>
+                                                            </fieldset>--}}
                                                             <fieldset title="Congratulations">
                                                                 <legend></legend>
                                                                 <div class="row">

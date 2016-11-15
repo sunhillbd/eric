@@ -30,11 +30,13 @@ Route::get('dashboard',['as'=>'dashboard','middleware'=>'dashboard', function ()
     return view('frontend.dashboard.index');
 }]);
 
-Route::get('dashboard/{form}',['as'=>'forms',function($form){
+Route::get('dashboard/{form}',['as'=>'forms','uses'=>'QuestionnareController@getForm',function($form){
 
-    return view('frontend.dashboard.'.$form);
+
 
 }]);
+
+Route::post('dashboard/questionnare/submint',['as'=>'questionnare.submit','uses'=>'QuestionnareController@store']);
 
 //Auth::routes();
 

@@ -36,16 +36,24 @@ class CreateQuestionnaresTable extends Migration
             $table->timestamps();
         });
 
-        Schema::create('articles', function (Blueprint $table) {
+        Schema::create('document_types', function (Blueprint $table) {
             $table->increments('id');
+            $table->string('document_type')->nullable();
+
+        });
+        Schema::create('documents', function (Blueprint $table) {
+            $table->increments('id');
+            $table->integer('document_type_id')->default(0);
             $table->integer('category_id')->default(0);
             $table->integer('user_id')->default(0);
             $table->string('file_name')->nullable();
-            $table->string('translated_file_name')->nullable();
+//            $table->string('translated_file_name')->nullable();
             $table->boolean('is_submitted')->default(false);
             $table->boolean('is_reviewed')->default(false);
             $table->timestamps();
         });
+
+
     }
 
     /**
@@ -58,6 +66,7 @@ class CreateQuestionnaresTable extends Migration
         Schema::dropIfExists('questionnares');
         Schema::dropIfExists('category_questionnare');
         Schema::dropIfExists('answers');
-        Schema::dropIfExists('articles');
+        Schema::dropIfExists('document_types');
+        Schema::dropIfExists('documents');
     }
 }

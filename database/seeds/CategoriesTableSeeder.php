@@ -13,7 +13,10 @@ class CategoriesTableSeeder extends Seeder
      */
     public function run()
     {
-
+        Eloquent::unguard();
+        DB::statement('SET FOREIGN_KEY_CHECKS=0;');
+        (new \App\Category())->truncate();
+        DB::statement('SET FOREIGN_KEY_CHECKS=1;');
 
         foreach ($this->categories as $category) {
             DB::table('categories')->insert([

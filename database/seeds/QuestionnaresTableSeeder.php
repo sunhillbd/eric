@@ -12,7 +12,7 @@ class QuestionnaresTableSeeder extends Seeder
         'When was this article published?',
         'What is the name of the article\'s author?',
         'Is this article in English?',
-        'Major Commercial Success'
+        'Is this document in English?'
     ];
 
     /**
@@ -22,6 +22,15 @@ class QuestionnaresTableSeeder extends Seeder
      */
     public function run()
     {
-        //
+        Eloquent::unguard();
+        DB::statement('SET FOREIGN_KEY_CHECKS=0;');
+        (new \App\Questionnare())->truncate();
+        DB::statement('SET FOREIGN_KEY_CHECKS=1;');
+
+        foreach ($this->questionnares as $questionnare) {
+            DB::table('questionnares')->insert([
+                'questionnare' => $questionnare,
+            ]);
+        }
     }
 }

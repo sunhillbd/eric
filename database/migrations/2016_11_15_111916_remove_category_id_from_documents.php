@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class Categories extends Migration
+class RemoveCategoryIdFromDocuments extends Migration
 {
     /**
      * Run the migrations.
@@ -13,10 +13,8 @@ class Categories extends Migration
      */
     public function up()
     {
-        Schema::create('categories', function (Blueprint $table) {
-            $table->increments('id');
-            $table->string('category_name')->nullable();
-            $table->timestamps();
+        Schema::table('documents', function (Blueprint $table) {
+           $table->dropColumn('category_id');
         });
     }
 
@@ -27,6 +25,8 @@ class Categories extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('categories');
+        Schema::table('documents', function (Blueprint $table) {
+            $table->integer('category_id')->default(0);
+        });
     }
 }

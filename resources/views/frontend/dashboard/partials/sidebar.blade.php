@@ -5,7 +5,7 @@
 
                 <nav role="navigation" class="widget-body">
                     <ul class="acc-menu">
-                        <li><a href="dashboard.html"><i class="fa fa-home"></i><span>Dashboard</span></a></li>
+                        <li><a href="{{ route('dashboard') }}"><i class="fa fa-home"></i><span>Dashboard</span></a></li>
                         <li><a href="javascript:;"><i class="fa fa-pencil"></i><span>Forms</span></a>
                             <ul class="acc-menu">
                                 <li><a href=" {{ route('forms',['press']) }}">Press</a></li>

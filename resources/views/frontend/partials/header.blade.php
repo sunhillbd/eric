@@ -24,8 +24,16 @@
                         <li><a href="resources.html"><div>Resources</div></a></li>
                         <li><a href="pricing.html"><div>Pricing</div></a></li>
                         <li><a href="faq.html"><div>FAQ</div></a></li>
-                        <li><a href="{{ route('register') }}"><div> Sign-up</div></a></li>
-                        <li><a href={{ route('auth.login') }}>Login</a></li>
+
+
+                        @if(!is_null(auth()->user()))
+                            <li><a href={{ route('auth.logout') }}>Logout</a></li>
+
+                        @else
+                            <li><a href="{{ route('register') }}">Sign-Up</a></li>
+                            <li><a href={{ route('auth.login') }}>Login</a></li>
+                        @endif
+
                     </ul>
 
                 </nav><!-- #primary-menu end -->

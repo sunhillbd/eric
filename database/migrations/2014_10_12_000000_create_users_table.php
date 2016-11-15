@@ -23,8 +23,8 @@ class CreateUsersTable extends Migration
             $table->string('package_name')->nullable();
             $table->string('description')->nullable();
             $table->double('price')->unique();
-            $table->string('plan_uid');
-            $table->integer('plan_type_id');
+            $table->string('plan_uid')->nullable();
+            $table->integer('plan_type_id')->default(0);
             $table->string('card_brand')->nullable();
             $table->string('card_last_four')->nullable();
             $table->timestamp('trial_ends_at')->nullable();

@@ -6,7 +6,14 @@
         <li><a href="resources.html">Resources</a></li>
         <li><a href="pricing.html">Pricing</a></li>
         <li><a href="faq.html">FAQ</a></li>
-        <li><a href="{{ route('register') }}">Sign-Up</a></li>
-        <li><a href="{{ route('auth.login') }}">Login </a></li>
+
+
+        @if(!is_null(auth()->user()))
+            <li><a href={{ route('auth.logout') }}>Logout</a></li>
+
+        @else
+            <li><a href="{{ route('register') }}">Sign-Up</a></li>
+            <li><a href={{ route('auth.login') }}>Login</a></li>
+        @endif
     </ul>
 </header>

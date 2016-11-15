@@ -71,13 +71,13 @@
 
                 <div class="static-content-wrapper">
 
+                    <br>
 
-                        <span class="pull-right">
                                 @if(isset(auth()->user()->first_name))
 
-                                    Welcome Mr {{ auth()->user()->first_name }}
+                                    <h5 class= 'col-md-offset-10'>Welcome Mr {{ auth()->user()->first_name }}</h5>
                                 @endif
-                        </span>
+
 
 
                     @yield('content')
