@@ -36,7 +36,7 @@ Route::get('dashboard/{form}',['as'=>'forms','uses'=>'QuestionnareController@get
 
 }]);
 
-Route::post('dashboard/questionnare/submint',['as'=>'questionnare.submit','uses'=>'QuestionnareController@store']);
+Route::post('dashboard/questionnare/',['as'=>'questionnare.submit','uses'=>'QuestionnareController@store']);
 
 //Auth::routes();
 

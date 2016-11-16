@@ -27,4 +27,9 @@ class User extends Authenticatable
     protected $hidden = [
         'password', 'remember_token',
     ];
+
+    public function questionnares()
+    {
+        return $this->belongsToMany(Questionnare::class)->withPivot('category_id', 'is_answered','is_back_later');
+    }
 }

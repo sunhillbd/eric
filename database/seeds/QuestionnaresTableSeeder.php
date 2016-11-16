@@ -7,12 +7,14 @@ class QuestionnaresTableSeeder extends Seeder
 
 
     private $questionnares = [
-        'What is the title of this article?',
-        'What is the name of the publication in which this article appeared?',
-        'When was this article published?',
-        'What is the name of the article\'s author?',
-        'Is this article in English?',
-        'Is this document in English?'
+        'Select document to upload'=>'article_document',
+        'What is the title of this article'=>'article_text',
+        'What is the name of the publication in which this article appeared'=>'article_text',
+        'When was this article published'=>'article_text',
+        'What is the name of the article\'s author'=>'article_text',
+        'Upload a translation of the article with certification'=>'article_translated',
+        'Please upload evidence of the publication\'s circulation or readership'=>'publication_document',
+        'Upload a translation of the document with certification'=>'publication_translated',
     ];
 
     /**
@@ -27,9 +29,10 @@ class QuestionnaresTableSeeder extends Seeder
         (new \App\Questionnare())->truncate();
         DB::statement('SET FOREIGN_KEY_CHECKS=1;');
 
-        foreach ($this->questionnares as $questionnare) {
+        foreach ($this->questionnares as $questionnare=>$qt) {
             DB::table('questionnares')->insert([
                 'questionnare' => $questionnare,
+                'questionnare_type' => $qt,
             ]);
         }
     }
