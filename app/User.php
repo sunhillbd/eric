@@ -16,7 +16,18 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password',
+        'name',
+        'email',
+        'password',
+        'first_name',
+        'last_name',
+        'plan_id',
+        'stripe_id',
+        'card_brand',
+        'card_last_four',
+        'coupon_code',
+        'trial_ends_at',
+        'is_charged',
     ];
 
     /**
@@ -28,6 +39,10 @@ class User extends Authenticatable
         'password', 'remember_token',
     ];
 
+    public function plan()
+    {
+        return $this->belongsTo('App\Plan');
+    }
     public function questionnares()
     {
         return $this->belongsToMany(Questionnare::class)->withPivot('category_id', 'is_answered','is_back_later');

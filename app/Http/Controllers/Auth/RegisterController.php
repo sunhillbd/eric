@@ -32,6 +32,7 @@ class RegisterController extends Controller
      * @var string
      */
     protected $redirectTo = '/register';
+    private $authenticatedUser;
 
     /**
      * Create a new controller instance.
@@ -41,6 +42,8 @@ class RegisterController extends Controller
     public function __construct()
     {
 //        $this->middleware('guest');
+
+
     }
 
     /**
@@ -52,7 +55,7 @@ class RegisterController extends Controller
     protected function validator(array $data)
     {
         return Validator::make($data, [
-            'package'=>'required',
+//            'package'=>'required',
             'first_name' => 'required|max:255',
             'last_name' => 'required|max:255',
             'email' => 'required|email|max:255|unique:users',
@@ -75,54 +78,7 @@ class RegisterController extends Controller
         ]);
     }
 
-    private function chargeUser(User $user,$token,Plan $plan)
-    {
-        try  {
 
-            \Stripe\Stripe::setApiKey("sk_test_ti1XFrcR7QnUntyrFHs9wYvq");
-
-            $packagePrice =  isset($plan)?($plan->price)*100:45*100;
-            $customer = \Stripe\Customer::create(array(
-                "source" => $token,
-                "email" => $user->email,
-                "coupon" => $user->coupon_code
-            ));
-
-//            $coupon = \Stripe\Customer::retrieve($customer->id);
-
-            if(isset($customer->discount->coupon->amount_off) ){
-
-                $packagePrice = $packagePrice - $customer->discount->coupon->amount_off;
-
-            }
-
-            if (isset($customer->discount->coupon->percent_off)) {
-
-                $packagePrice =$packagePrice - $packagePrice*($customer->discount->coupon->percent_off)/100;
-            }
-
-            $charged = \Stripe\Charge::create(array(
-                'customer'=>$customer->id,
-                "amount" => $packagePrice,
-                "currency" => "usd",
-                "description" => "Charge for ".$user->email
-            ));
-
-            $user->is_charged = true;
-
-            if ($user->save()) {
-
-                Auth::login($user);
-
-
-            }
-
-
-        } catch (Exception $e) {
-
-            return $e;
-        }
-    }
 
     public function register(Request $request, User $user, Plan $plan)
     {
@@ -135,17 +91,18 @@ class RegisterController extends Controller
         $user->password = $request->has('password')?bcrypt($request->password):bcrypt(123456);
         $user->first_name = $request->has('first_name')?$request->first_name:null;
         $user->last_name = $request->has('last_name')?$request->last_name:null;
-        $user->coupon_code =$request->has('coupon_code')? $request->coupon_code:null;
-        $token = $request->input('stripeToken');
 
-        DB::transaction(function()use($user,$token,$plan){
 
-           $this->chargeUser($user,$token,$plan);
+
+        DB::transaction(function()use($user){
+
+            if ($user->save()) {
+
+                Auth::login($user);
+            }
 
         });
 
-
-        return redirect(route('dashboard'));
-
+        return redirect(route('payment'))->withSuccess('Congrats!!! Your registration is done. One more step to go. Please, choose your package and pay accordingly to have a journey with us. Best of Luck ...');
     }
 }

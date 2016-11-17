@@ -78,7 +78,11 @@
                                     <h5 class= 'col-md-offset-10'>Welcome Mr {{ auth()->user()->first_name }}</h5>
                                 @endif
 
-
+                    @if (session()->has('success'))
+                        <div class="alert alert-success">
+                            {{ session('success') }}
+                        </div>
+                    @endif
 
                     @yield('content')
 

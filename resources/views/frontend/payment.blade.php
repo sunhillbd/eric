@@ -45,67 +45,59 @@
 								</div>
 							@endif
 
-						<h4>2. Review Your Selection</h4>
-							{!! Form::open(['route' => 'auth.register','name'=>'register-form','class'=>'nobottommargin']) !!}
+							{!! Form::open(['route' => 'payment','id'=>'payment-form','class'=>'nobottommargin']) !!}
+
+						<h4> Enter Your Payment Information</h4>
+
 						<div class="columnbox">
 
-							<div class="panel panel-default">
-								<div class="panel-body">
-									{!! Form::radio('package','Bronze',true) !!} Bronze package
-									<span class="pull-right"> price: $45</span>
-								</div>
-
-							</div>
-							<div class="panel panel-default">
-								<div class="panel-body">
-									{!! Form::radio('package','Silver') !!} Silver package <span class="pull-right"> price: $65</span>
-								</div>
-
-							</div>
-							<div class="panel panel-default">
-								<div class="panel-body">
-									{!! Form::radio('package','Gold') !!} Gold package <span class="pull-right"> price: $85</span>
-								</div>
-
-							</div>
-							<div class="panel panel-default">
-								<div class="panel-body">
-									{!! Form::radio('package','Platinum') !!} Platinum package <span class="pull-right">  price: $200</span>
-								</div>
-
-							</div>
-
-						</div>
-						<h4>3. Enter Your Account Information</h4>
-						<div class="columnbox">
 							<div class="col_half">
+									{!! Form::label('register-form-card-number','Card number') !!}
+									<span class="pull-right">
+										<img src="{{ asset('images/creditcards/amex.png') }}" class="creditcard">
+										<img src="{{ asset('images/creditcards/discover.png') }}" class="creditcard">
+										<img src="{{ asset('images/creditcards/mastercard.png') }}" class="creditcard">
+										<img src="{{ asset('images/creditcards/visa.png') }}" class="creditcard">
+									</span>
 
-								{!! Form::label('first_name','First Name') !!}
-								{!! Form::text('first_name',null,['id'=>'first-name','class'=>'form-control']) !!}
+									{!! Form::number('',null,['placeholder'=>'Card Number...','class'=>'form-control','data-stripe'=>'number','size'=>20]) !!}
+									{{--<input type="text" id="card-number" name="card-number" value="" class="form-control" />--}}
+								</div>
+								<div class="col_half col_last">
+									{!! Form::label('expiration-date','Expiration date') !!}<br>
 
-							</div>
-							<div class="col_half col_last">
-								{!! Form::label('last_name','Last Name') !!}
-								{!! Form::text('last_name',null,['id'=>'last-name','class'=>'form-control']) !!}
+									{!! Form::text('',null,['size'=>3,'placeholder'=>'MM','data-stripe'=>'exp_month']) !!}
+									<span class="">/</span>
 
-							</div>
-									{!! Form::label('email', 'Username (email address)') !!}
-									{!! Form::email('email',null,['id'=>'register-form-email','class'=>'form-control']) !!}
+									{!! Form::text('',null,['size'=>3,'placeholder'=>'YY','data-stripe'=>'exp_year']) !!}
 
-									{!! Form::label('password', 'Password') !!}<span>at least 6 characters long</span>
-									{!! Form::password('password',['id'=>'register-form-password','class'=>'form-control']) !!}
-									<br>
-									{!! Form::label('password_confirmation', 'Confirm Password') !!}<br>
-									{!! Form::password('password_confirmation',['id'=>'register-form-cpassword','class'=>'form-control']) !!}
+								</div>
+								<div class="clear"></div>
+								<div class="col_half">
 
+									{!! Form::label('register-form-cvc','Security Code') !!}
 
-							<br>
-							<a data-toggle="modal" data-target="#myModal" href="javascript:void(0)">Already have an account?</a>
-							<br><br>
-							<button class="button button-3d nomargin" id="sign-up" name="sign-up" value="sign-up">Sign-up</button>
+									{!! Form::text('',null,['class'=>'form-control','style'=>'width:100px','data-stripe'=>'cvc']) !!}
+
+								</div>
+								<div class="col_half col_last">
+									{!! Form::label('register-form-zip-code','Zip-code') !!}
+									{!! Form::text('',null,['class'=>'form-control','data-stripe'=>'address_zip','style'=>'width:100px']) !!}
+
+								</div>
+								<div class="clear"></div>
+								{!! Form::label('coupon-code','Coupon code') !!}
+								{!! Form::text('coupon_code',null,['class'=>'form-control','Placeholder'=>'Coupon Code (Optional)']) !!}
+								<br>
+								By clicking Complete Payment, I agree to the <a href="{{ route('index') }}">terms of use</a> and <a href="privacy-policy.html">privacy policy</a><br>
+								<span style="font-size:12px"><i class="icon-lock"></i> Your information is secure and protected</span><br><br>
+								<button class="submit button button-3d nomargin" >Complete Payment</button>
 
 						</div>
-
+						<div class="form-group payment-errors-group">
+                                    <span class="payment-errors alert alert-danger" style="display:none;">
+                                    </span>
+						</div>
 							{!! Form::close() !!}
 					</div>
 

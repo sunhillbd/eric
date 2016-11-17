@@ -42,8 +42,35 @@ class LoginController extends Controller
     public function log(Request $request)
     {
         $this->login($request);
-
         return redirect(route('dashboard'));
+
+    }
+
+    public function login(Request $request)
+    {
+        if(Auth::guest()){
+
+            if (Auth::attempt($this->credentials($request)/*,$validatedRequest->has('remember')*/)) {
+
+                return redirect()->intended(route('dashboard'));
+            }
+
+            return back()->withErrors('Sorry !!! your email or password is invalid');
+
+        }
+
+        return redirect()->intended(route('dashboard'));
+
+
+    }
+    public function credentials($request){
+
+        return [
+
+            'email' => $request->email,
+
+            'password' => $request->password/*,'status'=>'active'*/
+        ];
     }
 
     public function lgout(Request $request)

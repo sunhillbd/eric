@@ -22,7 +22,9 @@ Route::get('register',['as'=>'register', function(){
 }]);
 
 Route::post('register',['as'=>'auth.register','uses'=>'Auth\RegisterController@register']);
-Route::post('login',['as'=>'auth.login','uses'=>'Auth\LoginController@log']);
+Route::get('payment',['as'=>'payment','uses'=>'PaymentController@getPaymentForm'])->middleware('login');
+Route::post('payment',['as'=>'payment','uses'=>'PaymentController@pay'])->middleware('login');
+Route::post('login',['as'=>'auth.login','uses'=>'Auth\LoginController@login']);
 Route::get('login',['as'=>'auth.login','uses'=>'Auth\LoginController@loginPage']);
 Route::get('logout',['as'=>'auth.logout','uses'=>'Auth\LoginController@lgout']);
 Route::get('dashboard',['as'=>'dashboard','middleware'=>'dashboard', function () {
@@ -30,13 +32,9 @@ Route::get('dashboard',['as'=>'dashboard','middleware'=>'dashboard', function ()
     return view('frontend.dashboard.index');
 }]);
 
-Route::get('dashboard/{form}',['as'=>'forms','uses'=>'QuestionnareController@getForm',function($form){
+Route::resource('press','PressController');
 
-
-
-}]);
-
-Route::post('dashboard/questionnare/',['as'=>'questionnare.submit','uses'=>'QuestionnareController@store']);
+Route::post('questionnare/submit',['as'=>'questionnare.submit','uses'=>'QuestionnareController@store']);
 
 //Auth::routes();
 

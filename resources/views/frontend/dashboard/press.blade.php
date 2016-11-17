@@ -20,7 +20,9 @@
                                             <div class="panel-body">
                                                 <div class="tab-content">
                                                     <div class="tab-pane active">
-
+                                                        <form action="{{ route('press.create') }}" enctype="multipart/form-data" id="basicwizard" class="form-horizontal" method="POST">
+                                                            {{ csrf_field() }}
+                                                            <input type="hidden" name="category" value={{ isset($form)?$form:'press' }} />
                                                             <fieldset title="Guidelines">
                                                                 <legend></legend>
                                                                 <div class="row">
@@ -43,11 +45,9 @@
                                                                 </div>
                                                             </fieldset>
 
-                                                        <form action="{{ route('questionnare.submit') }}" enctype="multipart/form-data" id="basicwizard" class="form-horizontal" method="POST">
-                                                            {{ csrf_field() }}
-                                                            <input type="hidden" name="category" value={{ isset($form)?$form:'press' }} />
 
-                                                            @if(!$questionnares->isEmpty())
+
+                                                          {{--  @if(!$questionnares->isEmpty())
 
                                                                 @foreach($questionnares as $questionnare)
 
@@ -56,7 +56,7 @@
                                                                 @endforeach
 
 
-                                                            @endif
+                                                            @endif--}}
                                                             <fieldset title="Articles written about you part 1">
                                                                 <legend></legend>
                                                                 <div class="row">
