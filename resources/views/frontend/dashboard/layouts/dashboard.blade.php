@@ -27,6 +27,7 @@
     {!! Html::style('assets/plugins/iCheck/skins/minimal/blue.css') !!}
 
 
+
     <!-- Html5 shim and Respond.js IE8 support of Html5 elements and media queries. Placeholdr.js enables the placeholder attribute -->
     <!--[if lt IE 9]>
     {!! Html::style('assets/css/ie8.css') !!}

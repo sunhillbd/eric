@@ -3,6 +3,7 @@
 
 @section('styles')
     <link href="{{ asset('assets/plugins/dropzone/css/dropzone.css') }}" type="text/css" rel="stylesheet">
+        {!! Html::style('css/bootstrap-datepicker.min.css') !!}
 
 @endsection
 @section('content')
@@ -20,9 +21,10 @@
                                             <div class="panel-body">
                                                 <div class="tab-content">
                                                     <div class="tab-pane active">
-                                                        <form action="{{ route('press.create') }}" enctype="multipart/form-data" id="basicwizard" class="form-horizontal" method="POST">
+
+                                                        <form action="{{ route('press.store') }}" enctype="multipart/form-data" id="basicwizard" class="form-horizontal" method="POST">
                                                             {{ csrf_field() }}
-                                                            <input type="hidden" name="category" value={{ isset($form)?$form:'press' }} />
+
                                                             <fieldset title="Guidelines">
                                                                 <legend></legend>
                                                                 <div class="row">
@@ -72,7 +74,7 @@
                                                                 <div class="form-group">
                                                                     <label class="col-md-12 form-label">Select document to upload</label>
                                                                     <div class="col-md-12">
-                                                                        <input type="file" name="press_document[1]" id="fileToUpload">
+                                                                        <input type="file" name="doc_article" id="fileToUpload">
                                                                     </div>
                                                                 </div>
                                                             </fieldset>
@@ -81,7 +83,7 @@
                                                                 <div class="form-group">
                                                                     <label class="col-md-12 form-label">What is the title of this article?</label>
                                                                     <div class="col-md-12 form-input">
-                                                                        <input name='press_text[2]' type="text" class="form-control">
+                                                                        <input name='article_title' type="text" class="form-control">
                                                                     </div>
                                                                 </div>
                                                             </fieldset>
@@ -90,7 +92,7 @@
                                                                 <div class="form-group">
                                                                     <label class="col-md-12 form-label">What is the name of the publication in which this article appeared?</label>
                                                                     <div class="col-md-12 form-input">
-                                                                        <input name="press_text[3]" type="text" class="form-control">
+                                                                        <input name="publication_name" type="text" class="form-control">
                                                                     </div>
                                                                 </div>
                                                             </fieldset>
@@ -99,7 +101,7 @@
                                                                 <div class="form-group">
                                                                     <label class="col-md-12 form-label">When was this article published?</label>
                                                                     <div class="col-md-12 form-input">
-                                                                        <input name="press_text[4]" type="text" class="form-control">
+                                                                        <input name="publication_time" id='when_published' type="text" class="form-control">
                                                                     </div>
                                                                 </div>
                                                             </fieldset>
@@ -108,10 +110,10 @@
                                                                 <div class="form-group">
                                                                     <label class="col-md-12 form-label">What is the name of the article's author?</label>
                                                                     <div class="col-md-12 form-input">
-                                                                        <input name="press_text[5]" type="text" class="form-control">
+                                                                        <input name="article_author" type="text" class="form-control">
                                                                         <div class="checkboxcontainer">
                                                                             <label class="checkbox-inline icheck">
-                                                                                <input name="press_is_answered[5]" type="checkbox" id="inlinecheckbox1" value='yes'> No author given
+                                                                                <input name="is_author_given" type="checkbox" id="inlinecheckbox1" value='no'> No author given
                                                                             </label>
                                                                         </div>
                                                                     </div>
@@ -122,7 +124,7 @@
                                                                 <div class="form-group">
                                                                     <label class="col-md-12 form-label">Is this article in English?</label>
                                                                     <div class="col-md-12 form-input">
-                                                                        <select class="form-control" id="uploadtranslation">
+                                                                        <select class="form-control" name="article_in_english" id="uploadtranslation">
                                                                             <option value="yes">Yes</option>
                                                                             <option value="no">No</option>
                                                                         </select>
@@ -131,11 +133,11 @@
                                                                 <div class="form-group uploadtranslationbox" id="no" style="display: none;">
                                                                     <label class="col-md-12 form-label">Upload a translation of the article with certification <a class="btn btn-default-alt btn-xs" data-toggle="modal" href="#tipuploadtranslation">?</a></label>
                                                                     <div class="col-md-12 form-input">
-                                                                        <input type="file" name="press_translated[6]" id="fileToUpload">
+                                                                        <input type="file" name="doc_article_translation" id="fileToUpload">
                                                                         {{--<a href="#" class="btn btn-default">Upload translation</a>--}}
                                                                         <div class="checkboxcontainer">
                                                                             <label class="checkbox-inline icheck">
-                                                                                <input name="press_is_answered[6]" type="checkbox" name="translated_article" id="inlinecheckbox1" value="yes"> Come back to this later
+                                                                                <input name="article_translation_back_later" type="checkbox" id="inlinecheckbox1" value="yes"> Come back to this later
                                                                             </label>
                                                                         </div>
                                                                     </div>
@@ -146,11 +148,11 @@
                                                                 <div class="form-group">
                                                                     <label class="col-md-12 form-label">Please upload evidence of the publication's circulation or readership <a class="btn btn-default-alt btn-xs" data-toggle="modal" href="#tipuploadevidence">?</a></label>
                                                                     <div class="col-md-12 form-input">
-                                                                        <input name="press_document[7]" type="file"  id="fileToUpload">
+                                                                        <input name="doc_publication" type="file"  id="fileToUpload">
                                                                         {{--<a href="#" class="btn btn-default">Upload evidence</a>--}}
                                                                         <div class="checkboxcontainer">
                                                                             <label class="checkbox-inline icheck">
-                                                                                <input name="press_is_answered[7]" type="checkbox" name="publication_circulation" id="inlinecheckbox1" value="yes"> Come back to this later
+                                                                                <input name="publication_back_later" type="checkbox" id="inlinecheckbox1" value="yes"> Come back to this later
                                                                             </label>
                                                                         </div>
                                                                     </div>
@@ -161,20 +163,20 @@
                                                                 <div class="form-group">
                                                                     <label class="col-md-12 form-label">Is this document in English?</label>
                                                                     <div class="col-md-12 form-input">
-                                                                        <select class="form-control" id="uploadtranslation2">
-                                                                            <option value="yes2">Yes</option>
-                                                                            <option value="no2">No</option>
+                                                                        <select class="form-control" name="publication_in_english" id="uploadtranslation2">
+                                                                            <option value="yes">Yes</option>
+                                                                            <option value="no">No</option>
                                                                         </select>
                                                                     </div>
                                                                 </div>
                                                                 <div class="form-group uploadtranslationbox2" id="no2" style="display: none;">
                                                                     <label class="col-md-12 form-label">Upload a translation of the document with certification <a class="btn btn-default-alt btn-xs" data-toggle="modal" href="#tipuploadtranslation">?</a></label>
                                                                     <div class="col-md-12 form-input">
-                                                                        <input name="press_translated[8]" type="file" name="press_6" id="fileToUpload">
+                                                                        <input name="doc_publication_translation" type="file" id="fileToUpload">
                                                                         {{--<a href="#" class="btn btn-default">Upload translation</a>--}}
                                                                         <div class="checkboxcontainer">
                                                                             <label class="checkbox-inline icheck">
-                                                                                <input name="press_is_answered[8]" type="checkbox" name="translated_publication_circulation" id="inlinecheckbox1" value="option1"> Come back to this later
+                                                                                <input name="publication_translation_back_later" type="checkbox" id="inlinecheckbox1" value="yes"> Come back to this later
                                                                             </label>
                                                                         </div>
                                                                     </div>
@@ -257,6 +259,7 @@
 <script src="{{ asset('assets/plugins/form-stepy/jquery.stepy.js') }}"></script>                               <!-- Stepy Plugin -->
 <script src="{{ asset('assets/demo/demo-formwizard.js') }}"></script>
 <script src="{{ asset('assets/plugins/dropzone/dropzone.min.js') }}"></script>
+<script src="{{ asset('js/bootstrap-datepicker.min.js') }}"></script>
 
 
 
@@ -295,5 +298,25 @@ $(function() {
 });
 </script>
 <!-- End loading page level scripts-->
+
+<script>
+
+
+    $(document).ready(function(){
+
+
+
+
+            $('#when_published').datepicker({
+
+                format: 'yyyy-mm-dd'
+            });
+    });
+
+
+
+
+
+</script>
 
 @endsection

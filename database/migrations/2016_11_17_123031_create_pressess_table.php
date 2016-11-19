@@ -15,14 +15,14 @@ class CreatePressessTable extends Migration
     {
         Schema::create('presses', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('user_id');
+            $table->integer('user_id')->unsigned();
             $table->string('article_title')->nullable();
             $table->string('publication_name')->nullable();
             $table->timestamp('when_published')->nullable();
             $table->string('author_name')->nullable();
             $table->boolean('is_in_english')->default(0);
-            $table->boolean('is_confirm')->nullable(0);
-            $table->boolean('is_reviewed')->nullable(0);
+            $table->boolean('is_confirm')->default(0);
+            $table->boolean('is_reviewed')->default(0);
             $table->timestamps();
         });
     }

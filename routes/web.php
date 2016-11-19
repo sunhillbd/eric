@@ -24,10 +24,11 @@ Route::get('register',['as'=>'register', function(){
 Route::post('register',['as'=>'auth.register','uses'=>'Auth\RegisterController@register']);
 Route::get('payment',['as'=>'payment','uses'=>'PaymentController@getPaymentForm'])->middleware('login');
 Route::post('payment',['as'=>'payment','uses'=>'PaymentController@pay'])->middleware('login');
-Route::post('login',['as'=>'auth.login','uses'=>'Auth\LoginController@login']);
 Route::get('login',['as'=>'auth.login','uses'=>'Auth\LoginController@loginPage']);
+Route::post('login',['as'=>'auth.login','uses'=>'Auth\LoginController@login']);
+
 Route::get('logout',['as'=>'auth.logout','uses'=>'Auth\LoginController@lgout']);
-Route::get('dashboard',['as'=>'dashboard','middleware'=>'dashboard', function () {
+Route::get('dashboard',['as'=>'dashboard','middleware'=>['login','dashboard'], function () {
 
     return view('frontend.dashboard.index');
 }]);
