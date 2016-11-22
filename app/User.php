@@ -28,6 +28,9 @@ class User extends Authenticatable
         'coupon_code',
         'trial_ends_at',
         'is_charged',
+        'activation_code',
+        'is_active',
+        'password_reset_token',
     ];
 
     /**
@@ -43,8 +46,8 @@ class User extends Authenticatable
     {
         return $this->belongsTo('App\Plan');
     }
-    public function questionnares()
+    public function formCategories()
     {
-        return $this->belongsToMany(Questionnare::class)->withPivot('category_id', 'is_answered','is_back_later');
+        return $this->belongsToMany(FormCategory::class)->withPivot('status');
     }
 }

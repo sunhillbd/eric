@@ -5,7 +5,14 @@ use Illuminate\Database\Seeder;
 class CategoriesTableSeeder extends Seeder
 {
 
-    private $categories = ['Press','Leading Role','Major Significance','Critical Role','High Compensation','Major Commercial Success'];
+    private $categories = [
+        'press',
+        'leading_role',
+        'major_significance',
+        'critical_role',
+        'high_compensation',
+        'major_commercial_success'
+    ];
     /**
      * Run the database seeds.
      *
@@ -13,15 +20,29 @@ class CategoriesTableSeeder extends Seeder
      */
     public function run()
     {
-        Eloquent::unguard();
+        \Illuminate\Database\Eloquent\Model::unguard();
         DB::statement('SET FOREIGN_KEY_CHECKS=0;');
-        (new \App\Category())->truncate();
+        (new \App\FormCategory())->truncate();
         DB::statement('SET FOREIGN_KEY_CHECKS=1;');
 
-        foreach ($this->categories as $category) {
-            DB::table('categories')->insert([
+        foreach ($this->categories as $key =>  $category) {
+            DB::table('form_categories')->insert([
 
-                'category_name' => $category,
+                'name' => $category,
+
+            ]);
+
+
+
+        }
+
+        for($i=1;$i<7;$i++){
+
+            DB::table('form_category_user')->insert([
+
+                'form_category_id' => $i,
+                'user_id' => 1,
+                'status' => 'In Progress',
 
             ]);
         }

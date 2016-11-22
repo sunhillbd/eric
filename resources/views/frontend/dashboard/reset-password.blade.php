@@ -46,23 +46,11 @@
 							@endif
 
 
-							{!! Form::open(['route' => 'auth.register','name'=>'register-form','class'=>'nobottommargin']) !!}
+							{!! Form::open(['route' => 'auth.password.update','name'=>'register-form','class'=>'nobottommargin']) !!}
 
+							<input type="hidden" name="reset_pass_token" value="{{ $passwordResetToken }}">
 						<h4> Enter Your Account Information</h4>
 						<div class="columnbox">
-							<div class="col_half">
-
-								{!! Form::label('first_name','First Name') !!}
-								{!! Form::text('first_name',null,['id'=>'first-name','class'=>'form-control']) !!}
-
-							</div>
-							<div class="col_half col_last">
-								{!! Form::label('last_name','Last Name') !!}
-								{!! Form::text('last_name',null,['id'=>'last-name','class'=>'form-control']) !!}
-
-							</div>
-									{!! Form::label('email', 'Username (email address)') !!}
-									{!! Form::email('email',null,['id'=>'register-form-email','class'=>'form-control']) !!}
 
 									{!! Form::label('password', 'Password') !!}<span>at least 6 characters long</span>
 									{!! Form::password('password',['id'=>'register-form-password','class'=>'form-control']) !!}

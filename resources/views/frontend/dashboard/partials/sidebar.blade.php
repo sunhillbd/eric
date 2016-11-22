@@ -6,6 +6,7 @@
                 <nav role="navigation" class="widget-body">
                     <ul class="acc-menu">
                         <li><a href="{{ route('dashboard') }}"><i class="fa fa-home"></i><span>Dashboard</span></a></li>
+                        <li><a href="{{ route('dashboard.settings') }}"><i class="fa fa-cogs"></i><span>User Settings</span></a></li>
                         <li><a href="javascript:;"><i class="fa fa-pencil"></i><span>Forms</span></a>
                             <ul class="acc-menu">
                                 <li><a href=" {{ route('press.create') }}">Press</a></li>

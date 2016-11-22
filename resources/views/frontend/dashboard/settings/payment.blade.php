@@ -51,26 +51,26 @@
 
 								<div class="panel panel-default">
 									<div class="panel-body">
-										{!! Form::radio('package','Bronze',true) !!} Bronze package
+										{!! Form::radio('package','Bronze',$existingUserPlan=='Bronze') !!} Bronze package
 										<span class="pull-right"> price: $45</span>
 									</div>
 
 								</div>
 								<div class="panel panel-default">
 									<div class="panel-body">
-										{!! Form::radio('package','Silver') !!} Silver package <span class="pull-right"> price: $65</span>
+										{!! Form::radio('package','Silver',$existingUserPlan=='Silver') !!} Silver package <span class="pull-right"> price: $65</span>
 									</div>
 
 								</div>
 								<div class="panel panel-default">
 									<div class="panel-body">
-										{!! Form::radio('package','Gold') !!} Gold package <span class="pull-right"> price: $85</span>
+										{!! Form::radio('package','Gold', $existingUserPlan=='Gold') !!} Gold package <span class="pull-right"> price: $85</span>
 									</div>
 
 								</div>
 								<div class="panel panel-default">
 									<div class="panel-body">
-										{!! Form::radio('package','Platinum') !!} Platinum package <span class="pull-right">  price: $200</span>
+										{!! Form::radio('package','Platinum',$existingUserPlan=='Platinum') !!} Platinum package <span class="pull-right">  price: $200</span>
 									</div>
 
 								</div>

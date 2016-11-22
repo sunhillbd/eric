@@ -103,6 +103,21 @@
     	                        			<div class="form-group" style="text-align: center;">
                                                 <div class="col-md-12">
 
+                                                    @if (count($errors) > 0)
+                                                        <div class="alert alert-danger">
+                                                            <ul>
+                                                                @foreach ($errors->all() as $error)
+                                                                    <li>{{ $error }}</li>
+                                                                @endforeach
+                                                            </ul>
+                                                        </div>
+                                                    @endif
+
+                                                    @if (session()->has('success'))
+                                                        <div class="alert alert-success">
+                                                            {{ session('success') }}
+                                                        </div>
+                                                    @endif
                                                     {!! Form::open(['route' => 'auth.login','class'=>'nobottommargin']) !!}
 
 
@@ -114,10 +129,9 @@
                                                     <button class="button " id="sign-in" name="sign-in" value="sign-up">Sign-in</button>
 
                                                     {!! Form::close() !!}
-                                                   {{-- <input type="text" class="form-control dashboardloginform" id="focusedinput" placeholder="Email"><br><br>
-                                                    <input type="text" class="form-control dashboardloginform" id="focusedinput" placeholder="Password"><br><br>
+                                                    <a data-toggle="modal" data-target="#myModal" href="javascript:void(0)">forgot your password?</a>
 
-                                                    <a href="{{ route('auth.login') }}" class="btn btn-block" style="width: 100px; margin: 0 auto; background-color: #fff;">Login</a>--}}
+
                                                 </div>
                                             </div>
     	                        		</div>
@@ -147,6 +161,8 @@
         </footer>
 
 <!-- Load site level scripts -->
+
+        @include('frontend.partials.reset-password-modal')
 
 <script src="assets/js/jquery-1.10.2.min.js"></script> 							<!-- Load jQuery -->
 <script src="assets/js/jqueryui-1.9.2.min.js"></script> 							<!-- Load jQueryUI -->

@@ -20,10 +20,20 @@ class PaymentController extends Controller
         return view('frontend.payment')->with('register',true);
     }
 
+    public function getUpdatePaymentForm()
+    {
+//        dd(isset(auth()->user()->plan->package_name));
+        $existingUserPlan = isset(auth()->user()->plan->package_name)?auth()->user()->plan->package_name:null;
+//        dd($existingUserPlan);
+        return view('frontend.dashboard.settings.payment', compact('existingUserPlan'));
+    }
     public function pay(Request $request, Plan $plan)
     {
+
         $user = auth()->user();
-        $plan = $user->plan;
+        $plan = $request->has('package')?$plan->getPlan($request->package):null;
+//        $user->plan_id = isset($plan)?$plan->id:0;
+//        $plan = $user->plan;
         $user->coupon_code =$request->has('coupon_code')? $request->coupon_code:null;
         $token = $request->input('stripeToken');
 
@@ -41,6 +51,7 @@ class PaymentController extends Controller
 
 
     }
+
 
 
     private function chargeUser(User $user,$token,Plan $plan)

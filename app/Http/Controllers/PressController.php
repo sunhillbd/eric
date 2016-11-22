@@ -22,7 +22,7 @@ class PressController extends Controller
     public function create()
     {
 
-        return view('frontend.dashboard.press');
+        return view('frontend.dashboard.press.create');
     }
 
 
